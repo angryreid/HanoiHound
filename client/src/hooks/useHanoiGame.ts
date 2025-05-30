@@ -9,14 +9,14 @@ export interface GameState {
 
 export function useHanoiGame(initialDiskCount: number = 3) {
   const [diskCount, setDiskCount] = useState(initialDiskCount);
-  const [gameState, setGameState] = useState<GameState>({
+  const [gameState, setGameState] = useState<GameState>(() => ({
     towers: [
-      Array.from({ length: diskCount }, (_, i) => diskCount - i), // Source tower
+      Array.from({ length: initialDiskCount }, (_, i) => initialDiskCount - i), // Source tower
       [], // Auxiliary tower
       []  // Destination tower
     ],
     dogPosition: 0
-  });
+  }));
   
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
@@ -146,6 +146,21 @@ export function useHanoiGame(initialDiskCount: number = 3) {
     }
   }, [currentStep, solution, applyMove]);
 
+  const changeDiskCount = useCallback((newCount: number) => {
+    setDiskCount(newCount);
+    setGameState({
+      towers: [
+        Array.from({ length: newCount }, (_, i) => newCount - i),
+        [],
+        []
+      ],
+      dogPosition: 0
+    });
+    setCurrentStep(0);
+    setMoves(0);
+    setIsPlaying(false);
+  }, []);
+
   return {
     gameState,
     isPlaying,
@@ -154,6 +169,7 @@ export function useHanoiGame(initialDiskCount: number = 3) {
     moves,
     animationSpeed,
     gameMode,
+    diskCount,
     isComplete,
     playPause,
     reset,
@@ -161,6 +177,7 @@ export function useHanoiGame(initialDiskCount: number = 3) {
     nextStep,
     previousStep,
     setAnimationSpeed,
-    setGameMode
+    setGameMode,
+    changeDiskCount
   };
 }

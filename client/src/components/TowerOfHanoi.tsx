@@ -13,6 +13,7 @@ export default function TowerOfHanoi() {
     moves,
     animationSpeed,
     gameMode,
+    diskCount,
     playPause,
     reset,
     skipToEnd,
@@ -20,6 +21,7 @@ export default function TowerOfHanoi() {
     previousStep,
     setAnimationSpeed,
     setGameMode,
+    changeDiskCount,
     isComplete
   } = useHanoiGame();
 
@@ -90,6 +92,7 @@ export default function TowerOfHanoi() {
               totalSteps={totalSteps}
               animationSpeed={animationSpeed}
               gameMode={gameMode}
+              diskCount={diskCount}
               onPlayPause={playPause}
               onReset={reset}
               onSkipToEnd={skipToEnd}
@@ -97,6 +100,7 @@ export default function TowerOfHanoi() {
               onPreviousStep={previousStep}
               onSpeedChange={setAnimationSpeed}
               onModeChange={setGameMode}
+              onDiskCountChange={changeDiskCount}
               isComplete={isComplete}
             />
 
