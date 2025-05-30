@@ -98,9 +98,10 @@
   .bone {
     background: linear-gradient(45deg, #F5DEB3, #DEB887);
     border: 2px solid #8B7355;
-    border-radius: 20px;
+    border-radius: 25px;
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
   .bone::before,
@@ -109,19 +110,33 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 8px;
-    height: 8px;
-    background: #F5DEB3;
+    width: 12px;
+    height: 12px;
+    background: linear-gradient(45deg, #F5DEB3, #DEB887);
     border-radius: 50%;
     border: 2px solid #8B7355;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
   }
   
   .bone::before {
-    left: -6px;
+    left: -8px;
   }
   
   .bone::after {
-    right: -6px;
+    right: -8px;
+  }
+  
+  /* Add more realistic bone ends */
+  .bone::before {
+    box-shadow: 
+      0 1px 2px rgba(0, 0, 0, 0.1),
+      inset 0 -2px 0 rgba(139, 115, 85, 0.3);
+  }
+  
+  .bone::after {
+    box-shadow: 
+      0 1px 2px rgba(0, 0, 0, 0.1),
+      inset 0 -2px 0 rgba(139, 115, 85, 0.3);
   }
   
   .bone-size-1 {
@@ -144,33 +159,85 @@
     height: 16px;
   }
   
-  .dog-sprite {
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(45deg, #8B4513, #A0522D);
-    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
+  .bone-size-5 {
+    width: 120px;
+    height: 16px;
   }
   
+  .bone-size-6 {
+    width: 140px;
+    height: 16px;
+  }
+  
+  .dog-sprite {
+    width: 60px;
+    height: 45px;
+    background: linear-gradient(135deg, #8B4513 0%, #A0522D 50%, #D2691E 100%);
+    border-radius: 45% 45% 55% 55%;
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Dog head */
   .dog-sprite::before {
     content: '';
     position: absolute;
-    top: -8px;
-    left: 12px;
-    width: 26px;
-    height: 20px;
-    background: #8B4513;
-    border-radius: 50% 50% 0 0;
+    top: -12px;
+    left: 15px;
+    width: 30px;
+    height: 25px;
+    background: linear-gradient(135deg, #8B4513, #A0522D);
+    border-radius: 60% 60% 30% 30%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
   }
   
+  /* Dog features (eyes, nose, mouth) */
   .dog-sprite::after {
-    content: '👁️👁️';
+    content: '● ●';
     position: absolute;
-    top: -2px;
+    top: -8px;
     left: 50%;
     transform: translateX(-50%);
-    font-size: 10px;
+    font-size: 8px;
+    color: #000;
+    letter-spacing: 4px;
+    z-index: 2;
+  }
+  
+  /* Dog ears */
+  .dog-sprite {
+    overflow: visible;
+  }
+  
+  .dog-sprite:hover::before {
+    animation: ear-wiggle 0.5s ease-in-out;
+  }
+  
+  @keyframes ear-wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-3deg); }
+    75% { transform: rotate(3deg); }
+  }
+  
+  /* Add dog tail */
+  .dog-sprite:not(.dog-walking)::before {
+    box-shadow: 
+      0 2px 4px rgba(0, 0, 0, 0.15),
+      25px 10px 0 -8px #8B4513;
+  }
+  
+  /* Add dog nose */
+  .dog-sprite {
+    position: relative;
+  }
+  
+  .dog-sprite:before {
+    background: linear-gradient(135deg, #8B4513, #A0522D);
+    box-shadow: 
+      0 2px 4px rgba(0, 0, 0, 0.15),
+      inset 0 -2px 0 rgba(0, 0, 0, 0.1),
+      12px 12px 0 -10px #000;
   }
   
   .ripple {
@@ -251,20 +318,37 @@
   .bone-size-2 { width: 45px; height: 14px; }
   .bone-size-3 { width: 60px; height: 14px; }
   .bone-size-4 { width: 75px; height: 14px; }
+  .bone-size-5 { width: 90px; height: 14px; }
+  .bone-size-6 { width: 105px; height: 14px; }
+  
+  .bone::before,
+  .bone::after {
+    width: 10px;
+    height: 10px;
+  }
+  
+  .bone::before {
+    left: -6px;
+  }
+  
+  .bone::after {
+    right: -6px;
+  }
   
   .dog-sprite {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 38px;
   }
   
   .dog-sprite::before {
-    top: -6px;
-    left: 10px;
-    width: 20px;
-    height: 16px;
+    top: -10px;
+    left: 12px;
+    width: 26px;
+    height: 20px;
   }
   
   .dog-sprite::after {
-    font-size: 8px;
+    font-size: 6px;
+    letter-spacing: 3px;
   }
 }

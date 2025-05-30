@@ -7,7 +7,8 @@ export interface GameState {
   currentMove?: HanoiMove;
 }
 
-export function useHanoiGame(diskCount: number = 3) {
+export function useHanoiGame(initialDiskCount: number = 3) {
+  const [diskCount, setDiskCount] = useState(initialDiskCount);
   const [gameState, setGameState] = useState<GameState>({
     towers: [
       Array.from({ length: diskCount }, (_, i) => diskCount - i), // Source tower

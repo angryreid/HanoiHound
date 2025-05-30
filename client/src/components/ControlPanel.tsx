@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Slider } from "@/components/ui/slider";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Play, Pause, RotateCcw, SkipForward, SkipBack, ChevronLeft, ChevronRight } from "lucide-react";
 
 interface ControlPanelProps {
@@ -9,6 +10,7 @@ interface ControlPanelProps {
   totalSteps: number;
   animationSpeed: number;
   gameMode: 'step' | 'instant';
+  diskCount: number;
   onPlayPause: () => void;
   onReset: () => void;
   onSkipToEnd: () => void;
@@ -16,6 +18,7 @@ interface ControlPanelProps {
   onPreviousStep: () => void;
   onSpeedChange: (speed: number) => void;
   onModeChange: (mode: 'step' | 'instant') => void;
+  onDiskCountChange: (count: number) => void;
   isComplete: boolean;
 }
 
@@ -25,6 +28,7 @@ export default function ControlPanel({
   totalSteps,
   animationSpeed,
   gameMode,
+  diskCount,
   onPlayPause,
   onReset,
   onSkipToEnd,
@@ -32,6 +36,7 @@ export default function ControlPanel({
   onPreviousStep,
   onSpeedChange,
   onModeChange,
+  onDiskCountChange,
   isComplete
 }: ControlPanelProps) {
 
@@ -57,10 +62,36 @@ export default function ControlPanel({
 
   return (
     <div className="space-y-6">
+      {/* Difficulty Settings */}
+      <Card className="p-6 material-shadow">
+        <div className="space-y-4">
+          <h3 className="text-gray-800 font-medium text-lg text-center">Difficulty Settings</h3>
+          
+          {/* Disk Count Selector */}
+          <div className="space-y-2">
+            <label className="text-gray-600 text-sm font-medium">Number of Bones</label>
+            <Select value={diskCount.toString()} onValueChange={(value) => onDiskCountChange(parseInt(value))}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select number of bones" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="3">3 Bones (Easy)</SelectItem>
+                <SelectItem value="4">4 Bones (Medium)</SelectItem>
+                <SelectItem value="5">5 Bones (Hard)</SelectItem>
+                <SelectItem value="6">6 Bones (Expert)</SelectItem>
+              </SelectContent>
+            </Select>
+            <p className="text-gray-500 text-xs">
+              More bones = more challenging puzzle (moves needed: {totalSteps})
+            </p>
+          </div>
+        </div>
+      </Card>
+
       {/* Game Mode Toggle */}
       <Card className="p-6 material-shadow">
         <div className="text-center space-y-4">
-          <h3 className="text-gray-800 font-medium text-lg">Game Mode</h3>
+          <h3 className="text-gray-800 font-medium text-lg">Animation Mode</h3>
           <div className="flex rounded-lg bg-gray-100 p-1">
             <button
               className={`flex-1 px-4 py-2 rounded-md font-medium text-sm transition-all ${
