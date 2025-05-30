@@ -97,3 +97,7 @@ hanoi-tower-dog/
 3. Commit changes (`git commit -m 'Add amazing feature'`)
 4. Push (`git push origin feature/amazing-feature`)
 5. Open a PR
+
+## 📜 License
+
+MIT
