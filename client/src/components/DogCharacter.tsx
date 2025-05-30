@@ -22,7 +22,17 @@ export default function DogCharacter({ isPlaying, animationSpeed, currentTower }
       className={`dog-sprite absolute z-10 ${isPlaying ? 'dog-walking' : ''}`}
       style={getPositionStyle()}
     >
-      {/* Dog eyes and features are handled by CSS pseudo-elements */}
+      {/* Dog ears */}
+      <div className="ear-left"></div>
+      <div className="ear-right"></div>
+      
+      {/* Dog facial features */}
+      <div className="eyes">• •</div>
+      <div className="nose"></div>
+      <div className="mouth"></div>
+      
+      {/* Dog tail */}
+      <div className="tail"></div>
     </div>
   );
 }
