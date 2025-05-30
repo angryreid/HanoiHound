@@ -2,6 +2,10 @@
 
 A responsive web application that visualizes the Tower of Hanoi algorithm using a playful dog animation. Built with native JavaScript, HTML5, and CSS3 following Material Design principles.
 
+## Env
+
+- **Node.js**: v20.0.0 or higher
+
 ## ✨ Features
 
 - **Interactive Animation**
